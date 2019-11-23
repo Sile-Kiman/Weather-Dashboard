@@ -1,0 +1,40 @@
+
+.navbar{
+    
+    color: white!important;
+    align-content: center!important;
+}
+
+.col-sm-8:first-child{
+     background: chartreuse; 
+     border: 2px solid;
+}
+
+.col-sm-4{
+    background: coral;
+}
+.card{
+    margin: 0px;
+    width: 100%;
+     
+}
+
+button{
+    padding-bottom: 5Px;
+    padding-left: 10px;
+
+}
+
+input[type=text]{
+
+    padding-left: 30%;
+    padding-bottom: 5Px; 
+}
+
+.city{
+    margin-top:10px;
+}
+.displayCity{
+    background: darkmagenta;
+}
+ 
