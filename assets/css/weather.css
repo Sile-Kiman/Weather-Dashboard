@@ -11,10 +11,7 @@
       
 }
 
-/* .col-sm-8{
-    width: 100%;
-
-} */
+ 
 .container{
     margin: 0px;
     width: 100%;
@@ -28,7 +25,12 @@ button{
     background: mediumblue;
 
 }
+#search{
+   font-size: large; 
+   text-align: center!important;
+   color: white;
 
+}
 input[type=text]{
 
     padding-left: 30%;
