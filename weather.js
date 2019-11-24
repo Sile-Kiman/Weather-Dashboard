@@ -23,9 +23,6 @@ searchbtn.addEventListener("click", function (event) {
     retrieveAPI(searchVal);
 });
 
-//displayHistory()
-//retrieveAPI(searchVal);
-
 //Function to append all the cities search for on under the search input
 function displayHistory() {
     var history = localStorage.getItem("City Name");
@@ -36,9 +33,7 @@ function displayHistory() {
 
     }
 }
-//displayHistory()
-
-
+ 
 //function retrieve data from the weather API and populate the Temp and wheather conditions on the page.  
 function retrieveAPI(searchVal) {
     //Set the date 
