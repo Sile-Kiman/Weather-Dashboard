@@ -1,7 +1,8 @@
 var searchbtn = document.querySelector("button")
   
 var searchEL;
- 
+
+//$(".displayCity").empty()
 searchbtn.addEventListener("click", function (event) {
     event.preventDefault();
     var parentEl = this.parentElement;
@@ -11,23 +12,26 @@ searchbtn.addEventListener("click", function (event) {
     if (searchVal === "") {
         $('#errorMsg').attr("style", "color:red")
         $('#errorMsg').text("Please enter a valid City name");
+        
     } else {
         $('#errorMsg').empty();
         localStorage.setItem("City Name", searchVal)
+         
     }
     //call the function the last item from local storage
     //This fuction also performs the function that dispalay all the weather conditions
-    retrieveAPI(searchVal)
-    dailyForcast()
+     
+    displayHistory(history);
      
 });
+
 //function retrieve data from the weather API and populate the Temp and wheather conditions on the page.  
 function retrieveAPI(searchVal) {
     //Set the date 
     var date = new Date();
     date = moment().format('L');
     var currentTime = moment().format("H");
-    console.log(currentTime)
+     
     // This is my API key
     var APIKey = "eeab2a767f4b39347cacd521da7d158c";
 
@@ -135,11 +139,7 @@ function retrieveAPI(searchVal) {
             //prepend all the city weather information to the div main container
             $(".col-sm-8").prepend(weather);
              
-
+             
         })
-        //dailyForcast()
+         
 }
-
-
-
- 

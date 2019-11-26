@@ -1,5 +1,5 @@
  //Function to append  day1 forecast
-function dailyForcast(history) {
+ function day1Forecast(history) {
     var history = localStorage.getItem("City Name");
 
     if (history === null) {
@@ -7,7 +7,7 @@ function dailyForcast(history) {
 
     } else {
 
-        $(".history").prepend("<h5>" + history + "</h5>" + "<br />")
+        //$(".history").prepend("<h5>" + history + "</h5>" + "<br />")
     }
     //Set the date 
     var date = new Date();
@@ -131,9 +131,7 @@ function dailyForcast(history) {
              
 
         })
-        day2Forcast(history) 
-        day3Forcast(history)
-        day4Forcast(history)
-        day5Forcast(history)
+         
 
 }
+day1Forecast(history) 
