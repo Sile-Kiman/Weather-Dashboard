@@ -1,10 +1,19 @@
-var searchbtn = document.querySelector("button")
-  
-var searchEL;
+var searchHistoryJSON = localStorage.getItem("City-searched");
+var searchHistory = searchHistoryJSON ? JSON.parse(searchHistoryJSON) : { cities: [] };
 
-//$(".displayCity").empty()
+var last = searchHistory.cities.slice(-1);
+displayHistory(searchHistory.cities)
+console.log(searchHistory.cities)
+displaySearch(last);
+
+
+console.log(searchVal)
+var searchbtn = document.querySelector("button")
+var searchVal = "";
+
 searchbtn.addEventListener("click", function (event) {
     event.preventDefault();
+
     var parentEl = this.parentElement;
     searchVal = parentEl.querySelector("#city").value;
 
@@ -12,18 +21,28 @@ searchbtn.addEventListener("click", function (event) {
     if (searchVal === "") {
         $('#errorMsg').attr("style", "color:red")
         $('#errorMsg').text("Please enter a valid City name");
-        
     } else {
         $('#errorMsg').empty();
-        localStorage.setItem("City Name", searchVal)
-         
+        searchHistory.cities.push(searchVal);
+        localStorage.setItem('City-searched', JSON.stringify(searchHistory));
+        $(".daily").attr("style", "display:hide")
+
     }
-    //call the function the last item from local storage
-    //This fuction also performs the function that dispalay all the weather conditions
-     
-    displayHistory(history);
-     
+
+    //This function also performs the function that dispalay all the weather conditions
+    retrieveAPI(searchVal)
+    displayHistory(searchHistory.cities)
+    // day1Forecast(searchVal);
+    // day2Forecast(searchVal);
+    // day3Forecast(searchVal);
+    // day4Forecast(searchVal);
+    // day5Forecast(searchVal);
+
 });
+
+//retrieveAPI(searchVal)
+
+
 
 //function retrieve data from the weather API and populate the Temp and wheather conditions on the page.  
 function retrieveAPI(searchVal) {
@@ -31,13 +50,12 @@ function retrieveAPI(searchVal) {
     var date = new Date();
     date = moment().format('L');
     var currentTime = moment().format("H");
-     
+
     // This is my API key
     var APIKey = "eeab2a767f4b39347cacd521da7d158c";
 
     // Here I'm building the URL we need to query the database
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
-        "q=" + searchVal + "&appid=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchVal + "&appid=" + APIKey;
 
     // Here I'm running   AJAX call to the OpenWeatherMap API
     $.ajax({
@@ -47,51 +65,58 @@ function retrieveAPI(searchVal) {
         // Im storing all of the retrieved data inside of an object called "response"
         .then(function (response) {
 
-            //set icon URL day time
-            var sunnyDayURL = "http://openweathermap.org/img/wn/01d@2x.png";
-            var rainyDayURL = "http://openweathermap.org/img/wn/10d@2x.png";
-            var cloudDayURL = "http://openweathermap.org/img/wn/02d@2x.png";
-
-            //set icon URL night time
-            var rainyNightURL = "http://openweathermap.org/img/wn/10n@2x.png";
-            var nightURL = "http://openweathermap.org/img/wn/01n@2x.png";
-            var cloudNightURL = "http://openweathermap.org/img/wn/02n@2x.png";
-            var snowURL = "http://openweathermap.org/img/wn/13d@2x.png";
-
             //set weather condition variable
             var weatherCondition = response.weather[0].main;
             //create an image element to append the icons
             var image = $("<img>");
 
+            var imageUrl = "http://openweathermap.org/img/wn/13d@2x.png";
 
             //Set conditional statement to display the weather icon during snow time 
-            if (weatherCondition === "Snow") {
-                image.attr("src", snowURL);
+            if (weatherCondition !== "Snow") {
 
+                //Set conditional statement to display the weather icon during day time 
+                if (currentTime <= 17) {
+                    switch (weatherCondition) {
+                        case "Clouds":
+                            imageUrl = "http://openweathermap.org/img/wn/02d@2x.png";
+                            break;
+                        case "Rain":
+                            imageUrl = "http://openweathermap.org/img/wn/10d@2x.png";
+                            break;
+                        case "Clear":
+                            imageUrl = "http://openweathermap.org/img/wn/01d@2x.png";
+                            break;
+                        case "Mist":
+                            imageUrl = "http://openweathermap.org/img/wn/50d@2x.png";
+                            break;
+                        case "Thunderstorm":
+                            imageUrl = "http://openweathermap.org/img/wn/11d@2x.png";
+                            break;
 
-            } else {
+                    }
+                } else if (currentTime >= 18) {
+                    switch (weatherCondition) {
+                        case "Clouds":
+                            imageUrl = "http://openweathermap.org/img/wn/02n@2x.png";
+                            break;
+                        case "Rain":
+                            imageUrl = "http://openweathermap.org/img/wn/10n@2x.png";
+                            break;
+                        case "Clear":
+                            imageUrl = "http://openweathermap.org/img/wn/01n@2x.png";
+                            break;
+                        case "Mist":
+                            imageUrl = "http://openweathermap.org/img/wn/50n@2x.png";
+                            break;
+                        case "Thunderstorm":
+                            imageUrl = "http://openweathermap.org/img/wn/11n@2x.png";
+                            break;
 
+                    }
 
-                //Set conditional statement to display the weather icon during day time  
-                if (currentTime <= 17 && weatherCondition === "Clouds") {
-                    image.attr("src", cloudDayURL);
-
-                } else if (currentTime <= 17 && weatherCondition === "Rain") {
-                    image.attr("src", rainyDayURL);
-
-                } else if (currentTime <= 17 && weatherCondition === "Clear") {
-                    image.attr("src", sunnyDayURL);
                 }
-                //This is night time condition statement
-                if (currentTime >= 18 && weatherCondition === "Clouds") {
-                    image.attr("src", cloudNightURL);
-
-                } else if (currentTime >= 18 && weatherCondition === "Rain") {
-                    image.attr("src", rainyNightURL);
-
-                } else if (currentTime >= 18 && weatherCondition === "Clear") {
-                    image.attr("src", nightURL);
-                }
+                image.attr("src", imageUrl);
             }
 
             //Convert the temparature into F
@@ -137,9 +162,16 @@ function retrieveAPI(searchVal) {
             weather.append(Wind);
 
             //prepend all the city weather information to the div main container
-            $(".col-sm-8").prepend(weather);
-             
-             
+            $(".currentForcast").append(weather);
+
+
         })
-         
+
+    day1Forecast(searchVal);
+    day2Forecast(searchVal);
+    day3Forecast(searchVal);
+    day4Forecast(searchVal);
+    day5Forecast(searchVal);
 }
+
+ 

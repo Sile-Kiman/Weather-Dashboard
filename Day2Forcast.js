@@ -1,14 +1,37 @@
  //Function to append  day2 forecast
-function day2Forecast(history) {
-    var history = localStorage.getItem("City Name");
 
-    if (history === null) {
-        return;
+//  var searchbtn = document.querySelector("button")
+  
+// var searchVal;
 
-    } else {
+// searchbtn.addEventListener("click", function (event) {
+//     event.preventDefault();
+//     var parentEl = this.parentElement;
+//     searchVal = parentEl.querySelector("#city").value;
 
-        //$(".history").prepend("<h5>" + history + "</h5>" + "<br />")
-    }
+//     //This if condition will display an error  message if the search field is empty and save the city to the local storage
+//     if (searchVal === "") {
+//         $('#errorMsg').attr("style", "color:red")
+//         $('#errorMsg').text("Please enter a valid City name");
+        
+//     } else {
+//         $('#errorMsg').empty();
+          
+//     }
+     
+// });
+//var searchcity= "https://api.openweathermap.org/data/2.5/forecast?q="
+
+function day2Forecast(cityHistory) {
+    // var history = localStorage.getItem("City Name");
+
+    // if (history === null) {
+    //     return;
+
+    // } else {
+
+    //     //$(".history").prepend("<h5>" + history + "</h5>" + "<br />")
+    // }
     //Set the date 
     var date = new Date();
     date = moment().format('L');
@@ -16,9 +39,10 @@ function day2Forecast(history) {
     console.log(currentTime)
     // This is my API key
     var APIKey = "eeab2a767f4b39347cacd521da7d158c";
+   
 
     // Here I'm building the URL we need to query the database
-    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + history + ",us" + "&appid=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityHistory + ",us" + "&appid=" + APIKey;
 
     // Here I'm running   AJAX call to the OpenWeatherMap API
     $.ajax({
@@ -27,8 +51,8 @@ function day2Forecast(history) {
     })
         // Im storing all of the retrieved data inside of an object called "response"
         .then(function (response) {
-            console.log("5 day", response)
-
+ 
+            console.log("day2 " ,response)
             //set icon URL day time
             var sunnyDayURL = "http://openweathermap.org/img/wn/01d.png";
             var rainyDayURL = "http://openweathermap.org/img/wn/10d.png";
@@ -118,7 +142,7 @@ function day2Forecast(history) {
         })
 
 }
-day2Forecast(history) 
+//day2Forecast(searchVal) 
 
 
 

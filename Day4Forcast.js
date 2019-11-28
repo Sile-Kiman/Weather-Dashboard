@@ -1,15 +1,29 @@
 //day 4============================================================
+
+// var searchbtn = document.querySelector("button")
+  
+// var searchVal;
+
+// searchbtn.addEventListener("click", function (event) {
+//     event.preventDefault();
+//     var parentEl = this.parentElement;
+//     searchVal = parentEl.querySelector("#city").value;
+
+//     //This if condition will display an error  message if the search field is empty and save the city to the local storage
+//     if (searchVal === "") {
+//         $('#errorMsg').attr("style", "color:red")
+//         $('#errorMsg').text("Please enter a valid City name");
+        
+//     } else {
+//         $('#errorMsg').empty();
+          
+//     }
+     
+// });
+ 
 //Function to append  day4 forecast
-function day4Forecast(history) {
-    var history = localStorage.getItem("City Name");
-
-    if (history === null) {
-        return;
-
-    } else {
-
-       // $(".history").prepend("<h5>" + history + "</h5>" + "<br />")
-    }
+function day4Forecast(cityHistory) {
+ 
     //Set the date 
     var date = new Date();
     date = moment().format('L');
@@ -19,7 +33,7 @@ function day4Forecast(history) {
     var APIKey = "eeab2a767f4b39347cacd521da7d158c";
 
     // Here I'm building the URL we need to query the database
-    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + history + ",us" + "&appid=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityHistory + ",us" + "&appid=" + APIKey;
 
     // Here I'm running   AJAX call to the OpenWeatherMap API
     $.ajax({
@@ -120,4 +134,4 @@ function day4Forecast(history) {
         })
 
 }
-day4Forecast(history) 
+//day4Forecast(searchVal) 
