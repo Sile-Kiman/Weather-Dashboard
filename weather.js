@@ -31,7 +31,7 @@ searchbtn.addEventListener("click", function (event) {
 
     //This function also performs the function that dispalay all the weather conditions
     retrieveAPI(searchVal)
-    displayHistory(searchHistory.cities)
+    //displayHistory(searchHistory.cities)
     // day1Forecast(searchVal);
     // day2Forecast(searchVal);
     // day3Forecast(searchVal);
@@ -167,11 +167,11 @@ function retrieveAPI(searchVal) {
 
         })
 
-    day1Forecast(searchVal);
-    day2Forecast(searchVal);
-    day3Forecast(searchVal);
-    day4Forecast(searchVal);
-    day5Forecast(searchVal);
+    // day1Forecast(searchVal);
+    // day2Forecast(searchVal);
+    // day3Forecast(searchVal);
+    // day4Forecast(searchVal);
+    // day5Forecast(searchVal);
 }
 
  

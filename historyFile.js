@@ -151,11 +151,11 @@ function displaySearch(cityHistory) {
             $(".col-sm-8").prepend(weather);
 
         })
-        day1Forecast(cityHistory);
-        day2Forecast(cityHistory);
-        day3Forecast(cityHistory);
-        day4Forecast(cityHistory);
-        day5Forecast(cityHistory);
+        // day1Forecast(cityHistory);
+        // day2Forecast(cityHistory);
+        // day3Forecast(cityHistory);
+        // day4Forecast(cityHistory);
+        // day5Forecast(cityHistory);
 
 }
 //displaySearch(cityHistory)
